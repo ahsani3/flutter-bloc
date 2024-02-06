@@ -27,6 +27,12 @@ class TodoPage extends StatelessWidget {
                     return ListTile(
                       title: Text(todo.name),
                       onTap: () => _showEditDialog(context, index, todo.name),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          _showDeleteConfirmation(context, index);
+                        },
+                      ),
                     );
                   },
                 );
@@ -77,6 +83,33 @@ class TodoPage extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               child: const Text('Save'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showDeleteConfirmation(BuildContext context, int index) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Todo'),
+          content: Text('Are you sure you want to delete this todo?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                context.read<TodoCubit>().deleteTodo(index);
+                Navigator.of(context).pop();
+              },
+              child: const Text('Delete'),
             ),
           ],
         );
