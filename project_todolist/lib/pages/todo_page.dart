@@ -52,6 +52,7 @@ class TodoPage extends StatelessWidget {
     );
   }
 
+// pop up edit
   Future<void> _showEditDialog(
       BuildContext context, int index, String currentTitle) async {
     TextEditingController _editController =
@@ -90,6 +91,7 @@ class TodoPage extends StatelessWidget {
     );
   }
 
+// pop up delete
   Future<void> _showDeleteConfirmation(BuildContext context, int index) async {
     return showDialog(
       context: context,
